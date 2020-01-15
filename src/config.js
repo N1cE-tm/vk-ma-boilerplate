@@ -1,5 +1,5 @@
 export const config = {
-    appID: 7126930,
+    appID: 7282836,
     vkAPI: '5.92',
     startStory: 'home',
     startView: 'home',

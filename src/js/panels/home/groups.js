@@ -7,7 +7,7 @@ import * as VK from '../../services/VK';
 
 import {renderGroupsList} from '../../services/renderers';
 
-import {Div, List, Panel, Group, Button, PanelHeader, PanelSpinner, PanelHeaderBack} from "@vkontakte/vkui";
+import {Div, List, Panel, Group, Button, PanelHeader, PanelSpinner, PanelHeaderBack, Header} from "@vkontakte/vkui";
 
 class HomePanelGroups extends React.Component {
 
@@ -107,13 +107,13 @@ class HomePanelGroups extends React.Component {
                     </Div>
                 </Group>}
                 {!this.state.loading && !this.state.errorGetAuthToken && adminedGroupsList &&
-                <Group title="Администрируемые">
+                <Group header={<Header>Администрируемые</Header>}>
                     <List>
                         {adminedGroupsList}
                     </List>
                 </Group>}
                 {!this.state.loading && !this.state.errorGetAuthToken && otherGroupsList &&
-                <Group title="Остальные">
+                <Group header={<Header>Остальные</Header>}>
                     <List>
                         {otherGroupsList}
                     </List>

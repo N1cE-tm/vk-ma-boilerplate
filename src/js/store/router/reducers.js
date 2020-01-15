@@ -221,7 +221,7 @@ export const routerReducer = (state = initialState, action) => {
                 VK.swipeBackOff();
             }
 
-            window.history.pushState(null, null, routerState2Url(setStory, setView, setPanel));
+            window.history.replaceState(null, null, routerState2Url(setStory, setView, setPanel));
             return {
                 ...state,
                 activeView: setView,

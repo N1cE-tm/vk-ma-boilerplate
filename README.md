@@ -12,7 +12,7 @@
 [Документация по React Redux](https://rajdee.gitbooks.io/redux-in-russian/content/)
 
 ## Установка:
-`git clone git://github.com/n1ce-tm/vk-ma-boilerplate.git <folder name>`
+`git clone git://github.com/nN1cE-tm/vk-ma-boilerplate.git <folder name>`
 
 Перейдите в созданную папку и выполните команды: `npm install` и `npm start`, последняя запустит сервер для разработки на `localhost:10888`
 
@@ -69,7 +69,7 @@ componentDidMount() {
 ```
 Пример находится в файле: [`/src/js/panels/more/base.js`](https://github.com/N1cE-tm/vk-ma-boilerplate/blob/master/src/js/panels/more/base.js)
 #### Важно:
-В файле [`/config.js`](https://github.com/N1cE-tm/vk-ma-boilerplate/blob/master/src/config.js) на первых строках указывается стартовая панель приложения:
+В файле [`config.js`](https://github.com/N1cE-tm/vk-ma-boilerplate/blob/master/src/config.js#L4-L6) на первых строках указывается стартовая панель приложения:
 ```javascript
 export const routerConfig = {
     startStory: 'home',
@@ -93,4 +93,4 @@ import App from './App';
 ```
 По умолчанию для примера выбран вариант с Epic навигацией.
 
-В файле [`/config.js`](https://github.com/N1cE-tm/vk-mini-app-boilerplate/blob/master/src/config.js) нужно заменить значение константы `appID` на ID вашего приложения
+В файле [`config.js`](https://github.com/N1cE-tm/vk-ma-boilerplate/blob/master/src/config.js#L2) нужно заменить значение константы `appID` на ID вашего приложения

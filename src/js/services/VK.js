@@ -23,7 +23,7 @@ export const getAuthToken = (scope) => (dispatch) => {
         "app_id": config.appID,
         "scope": scope.join(',')
     }).then(data => {
-        dispatch(setAccessToken(data.data.access_token));
+        dispatch(setAccessToken(data.access_token));
     }).catch(() => {
         dispatch(setAccessToken(null));
     });
@@ -57,7 +57,7 @@ export const APICall = (method, params) => {
         "method": method,
         "params": params
     }).then(data => {
-        return data.data.response;
+        return data.response;
     }).catch(error => {
         return error;
     });
