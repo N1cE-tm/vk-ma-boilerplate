@@ -1,6 +1,8 @@
 # VK Mini App Boilerplate
 **Стартовый кит для создания сервиса на платформе VK Mini Apps.**
 
+Основан на [iSa1vatore/vk-mini-app-boilerplate](https://github.com/iSa1vatore/vk-mini-app-boilerplate)
+
 Чтобы понимать, что здесь происходит вы должны знать что такое VK Mini Apps,  ReactJS и React Redux.
 
 [Документация по VK Mini Apps](https://vk.com/dev/vk_apps_docs)
@@ -10,7 +12,7 @@
 [Документация по React Redux](https://rajdee.gitbooks.io/redux-in-russian/content/)
 
 ## Установка:
-`git clone git://github.com/iSa1vatore/vk-mini-app-boilerplate.git <folder name>`
+`git clone git://github.com/n1ce-tm/vk-ma-boilerplate.git <folder name>`
 
 Перейдите в созданную папку и выполните команды: `npm install` и `npm start`, последняя запустит сервер для разработки на `localhost:10888`
 
@@ -18,6 +20,7 @@
 
 ## KIT:
 #### Что реализовано:
+- Обновлены зависимости (библиотеки до более свежих версий)
 - Поддержка темы нативного клиента
 - Поддержка iOS swipe back для панелей
 - Обработка хардверной кнопки "назад" для Android
@@ -26,7 +29,8 @@
 - Получение токена пользователя
 - Запросы к API ВКонтакте
 - Сохранение данных в форме при смене панели
-- Роутер
+- Роутер с hash в url и поддержкой pretty url
+- Загрузка из url
 
 #### Роутер:
 Действия которые роутер может выполнить:
@@ -63,11 +67,15 @@ componentDidMount() {
     restoreScrollPosition();
 }
 ```
-Пример находится в файле: [`/src/js/panels/more/base.js`](https://github.com/iSa1vatore/vk-mini-app-boilerplate/blob/master/src/js/panels/more/base.js)
+Пример находится в файле: [`/src/js/panels/more/base.js`](https://github.com/N1cE-tm/vk-ma-boilerplate/blob/master/src/js/panels/more/base.js)
 #### Важно:
-В файле index.js на 24 стороке указывается стартовая панель приложения:
+В файле [`/config.js`](https://github.com/N1cE-tm/vk-ma-boilerplate/blob/master/src/config.js) на первых строках указывается стартовая панель приложения:
 ```javascript
-store.dispatch(setStory('home', 'base'));
+export const routerConfig = {
+    startStory: 'home',
+    startView: 'home',
+    startPanel: 'base'
+};
 ```
 В данном случае это значит, что приложение запустится с:
 
@@ -85,9 +93,4 @@ import App from './App';
 ```
 По умолчанию для примера выбран вариант с Epic навигацией.
 
-В файле по пути [`/src/js/services/VK.js`](https://github.com/iSa1vatore/vk-mini-app-boilerplate/blob/master/src/js/services/VK.js) нужно заменить значение константы `APP_ID` на ID вашего приложения
-
-
-Демо: [vk.com/app6984089](https://vk.com/app6984089)
-
-Мой VK (вопросы, предложения): [Ivan Salvatore](https://vk.com/s9008)
+В файле [`/config.js`](https://github.com/N1cE-tm/vk-mini-app-boilerplate/blob/master/src/config.js) нужно заменить значение константы `appID` на ID вашего приложения

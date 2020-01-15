@@ -40,7 +40,7 @@ class HomePanelBase extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader>Examples</PanelHeader>
+                <PanelHeader>Примеры</PanelHeader>
                 <Group>
                     <Div>
                         <Button size="l" stretched={true} onClick={() => setPage('home', 'groups')}>Список моих

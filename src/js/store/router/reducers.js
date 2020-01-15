@@ -9,7 +9,8 @@ import {
 } from './actionTypes';
 
 import * as VK from "../../services/VK";
-import {smoothScrollToTop} from "../../services/_functions";
+import {smoothScrollToTop, routerState2Url} from "../../services/_functions";
+import {config} from "../../../config";
 
 const initialState = {
     activeStory: null,
@@ -35,7 +36,7 @@ export const routerReducer = (state = initialState, action) => {
             let View = action.payload.view;
             let Panel = action.payload.panel;
 
-            window.history.pushState(null, null);
+            // window.history.pushState(null, null);
 
             let panelsHistory = state.panelsHistory[View] || [];
             let viewsHistory = state.viewsHistory[state.activeStory] || [];
@@ -54,6 +55,7 @@ export const routerReducer = (state = initialState, action) => {
                 VK.swipeBackOn();
             }
 
+            window.history.pushState(null, null, routerState2Url(state.activeStory, View, Panel));
             return {
                 ...state,
                 activeView: View,
@@ -75,7 +77,7 @@ export const routerReducer = (state = initialState, action) => {
         }
 
         case SET_STORY: {
-            window.history.pushState(null, null);
+            // window.history.pushState(null, null);
 
             let viewsHistory = state.viewsHistory[action.payload.story] || [action.payload.story];
 
@@ -111,6 +113,8 @@ export const routerReducer = (state = initialState, action) => {
             if (storiesIndexInHistory === -1 || (storiesHistory[0] === action.payload.story && storiesHistory[storiesHistory.length - 1] !== action.payload.story)) {
                 storiesHistory = [...storiesHistory, action.payload.story];
             }
+
+            window.history.pushState(null, null, routerState2Url(action.payload.story, activeView, activePanel));
 
             return {
                 ...state,
@@ -191,14 +195,14 @@ export const routerReducer = (state = initialState, action) => {
                 viewsHistory.pop();
 
                 setView = viewsHistory[viewsHistory.length - 1];
-                let panelsHistoryNew = state.panelsHistory[setView];
+                let panelsHistoryNew = state.panelsHistory[setView] || config.basePanel;
 
                 setPanel = panelsHistoryNew[panelsHistoryNew.length - 1];
             } else if (storiesHistory.length > 1 && action.payload.from === 'Android') {
                 storiesHistory.pop();
 
-                setStory = storiesHistory[storiesHistory.length - 1];
-                setView = state.viewsHistory[setStory][state.viewsHistory[setStory].length - 1];
+                setStory = storiesHistory[storiesHistory.length - 1] || config.startStory;
+                setView = state.viewsHistory[setStory][state.viewsHistory[setStory].length - 1] || config.startView;
 
                 let panelsHistoryNew = state.panelsHistory[setView];
 
@@ -207,6 +211,8 @@ export const routerReducer = (state = initialState, action) => {
                 } else {
                     setPanel = panelsHistoryNew[0];
                 }
+            } else if(panelsHistory.length === 1) {
+                setPanel = 'base';
             } else {
                 VK.closeApp();
             }
@@ -215,6 +221,7 @@ export const routerReducer = (state = initialState, action) => {
                 VK.swipeBackOff();
             }
 
+            window.history.pushState(null, null, routerState2Url(setStory, setView, setPanel));
             return {
                 ...state,
                 activeView: setView,
@@ -265,10 +272,10 @@ export const routerReducer = (state = initialState, action) => {
             } else if (modalsHistory.indexOf(activeModal) !== -1) {
                 modalsHistory = modalsHistory.splice(0, modalsHistory.indexOf(activeModal) + 1);
             } else {
-                modalsHistory.push(activeModal);
-            }
+                modalsHistory.push(activeModal);    
+               }
 
-            return {
+             return {
                 ...state,
                 activeModals: {
                     ...state.activeModals,

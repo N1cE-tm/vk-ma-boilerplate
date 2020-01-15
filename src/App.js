@@ -86,7 +86,7 @@ class App extends React.Component {
                             selected={activeStory === 'home'}
                         ><Icon28Newsfeed/></TabbarItem>
                         <TabbarItem
-                            onClick={() => setStory('more', 'callmodal')}
+                            onClick={() => setStory('more', 'base')}
                             selected={activeStory === 'more'}
                         ><Icon28More/></TabbarItem>
                     </Tabbar>
@@ -111,7 +111,7 @@ class App extends React.Component {
                             history={history}
                             onSwipeBack={() => goBack()}
                         >
-                            <MorePanelBase id="callmodal"/>
+                            <MorePanelBase id="base"/>
                         </View>
                         <View
                             id="modal"

@@ -1,29 +1,26 @@
-import VKConnectOld from "@vkontakte/vk-connect";
-import VKConnect from "@vkontakte/vkui-connect-promise";
+import VKConnect from "@vkontakte/vk-connect";
 
 import {store} from "../../index";
+import {config} from "../../config";
 
 import {setColorScheme, setAccessToken} from "../store/vk/actions";
 
-const APP_ID = 6984089;
-const API_VERSION = '5.92';
-
 export const initApp = () => (dispatch) => {
-    const VKConnectOldCallback = (e) => {
+    const VKConnectCallback = (e) => {
         if (e.detail.type === 'VKWebAppUpdateConfig') {
-            VKConnectOld.unsubscribe(VKConnectOldCallback);
+            VKConnect.unsubscribe(VKConnectCallback);
 
             dispatch(setColorScheme(e.detail.data.scheme));
         }
     };
 
-    VKConnectOld.subscribe(VKConnectOldCallback);
+    VKConnect.subscribe(VKConnectCallback);
     VKConnect.send('VKWebAppInit', {});
 };
 
 export const getAuthToken = (scope) => (dispatch) => {
-    VKConnect.send("VKWebAppGetAuthToken", {
-        "app_id": APP_ID,
+    VKConnect.sendPromise("VKWebAppGetAuthToken", {
+        "app_id": config.appID,
         "scope": scope.join(',')
     }).then(data => {
         dispatch(setAccessToken(data.data.access_token));
@@ -54,9 +51,9 @@ export const groupsGet = () => {
 
 export const APICall = (method, params) => {
     params['access_token'] = store.getState().vkui.accessToken;
-    params['v'] = params['v'] === undefined ? API_VERSION : params['v'];
+    params['v'] = params['v'] === undefined ? config.vkAPI : params['v'];
 
-    return VKConnect.send("VKWebAppCallAPIMethod", {
+    return VKConnect.sendPromise("VKWebAppCallAPIMethod", {
         "method": method,
         "params": params
     }).then(data => {
